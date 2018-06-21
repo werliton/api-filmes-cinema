@@ -25,7 +25,7 @@ def filmes():
 
     return jsonify({ 'filmes': data})
 
-
+# Lista filmes do Rio Anil
 @app.route('/api/v1/cinema/rioanil', methods=['GET'])
 def rioanil():
     html_doc = urlopen("http://www.rioanil.com.br/cinema").read()
