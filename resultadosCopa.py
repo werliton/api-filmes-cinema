@@ -7,18 +7,19 @@ app = Flask(__name__)
 
 @app.route('/api/v1/copa/resultados')
 def resultados():
-    html_doc = urlopen("https://www.resultados.com/futebol/mundo/copa-do-mundo/resultados/").read()
+    html_doc = urlopen("http://upcuesta.com.br/portal/2018/06/21/copa-do-mundo-2018-tabela-de-jogos/").read()
     soup = BeautifulSoup(html_doc, "html.parser")
 
     data = []
-
-    for dataBox in soup.find_all("tr",class_="odd stage-finished"):
-        timcasa = dataBox.find('td', class_="cell_ab team bold").find("span")
-
-
-        data.append({
-            'timeCasa':timcasa.text.strip()
-        })
+    
+    for dataBox in soup.find_all("tr"):
+        for tdBox in dataBox.find_all('td',{'width':'194'}):
+            primo = tdBox.next_sibling
+            jogos = tdBox.text
+            data.append({
+                'data': primo.strip(),
+                'jogos':jogos.strip()
+            })
 
     return jsonify({'resultados': data})
 
