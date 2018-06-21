@@ -14,10 +14,8 @@ def resultados():
     
     for dataBox in soup.find_all("tr"):
         for tdBox in dataBox.find_all('td',{'width':'194'}):
-            primo = tdBox.next_sibling
             jogos = tdBox.text
             data.append({
-                'data': primo.strip(),
                 'jogos':jogos.strip()
             })
 
