@@ -32,20 +32,27 @@ def rioanil():
     soup = BeautifulSoup(html_doc, "html.parser")
 
     data = []
-    
+	   
     for dataBox in soup.find_all("div", class_="col-xs-12 col-sm-6 col-md-6 col"):
+        horas = []
+        for bxHora in dataBox.find_all("div", class_="titulo-hora"):
+            hora = bxHora.find("span")
+            horas.append({
+				'horario': hora.text.strip()
+			})
+            
         thumbObj = dataBox.find("div", class_="thumb")
         nomeObj  = dataBox.find("div", class_="descricao").find("a", class_="aspNetDisabled link-default")
         exibicao = dataBox.find("div", class_="titulo-exibicao")
         sala     = dataBox.find("div", class_="titulo-sala").find("b")
-        horario  = dataBox.find("div", class_="titulo-hora").find("span")
-        #classificacao = dataBox.find("p", class_="classicacao").find("span")
+        #horario  = dataBox.find("div", class_="titulo-hora").find("span")
+		#classificacao = dataBox.find("p", class_="classicacao").find("span")
         data.append({
             'nome':nomeObj.text.strip(),
             'thumb':thumbObj.input['src'].strip(),
             'exibicao':exibicao.text.strip(),
             'sala':sala.text.strip(),
-            'horario': horario.text.strip(),
+            'horario': horas,
             #'classificacao':classificacao.text.strip()
         })
 

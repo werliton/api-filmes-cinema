@@ -24,7 +24,7 @@ def filmes():
             'thumb':thumbObj.input['src'].strip(),
             'exibicao':exibicao.text.strip(),
             'sala':sala.text.strip(),
-            'horario': horario.text.strip(),
+            'horario': horario.text.strip()
             #'classificacao':classificacao.text.strip()
         })
 
