@@ -82,7 +82,26 @@ def resultados():
 
     return jsonify({'resultados': data})
 
+@app.route('/api/v1/cinema/rioanil2', methods=['GET'])
+def movies():	
+	html_doc = urlopen("https://www.cinesystem.com.br/cinemas/rio-anil-shopping/856").read()
+	soup = BeautifulSoup(html_doc, "html.parser")
+	
+	data = []
+	
+	for dataBox in soup.find_all("div", class_="col-md-12"):
+		for h in dataBox.find_all("h3", class_="nome-cinema"):
+			nomeCinema = h.find("a")	
+			data.append({
+				'nome':nomeCinema.text#.strip()
+			})
+	
+	return jsonify({'filmes': data})
+	
 if __name__ == '__main__':
-    #app.run()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run()
+    #port = int(os.environ.get('PORT', 5000))
+    #app.run(host='0.0.0.0', port=port)
+	
+	
+	
